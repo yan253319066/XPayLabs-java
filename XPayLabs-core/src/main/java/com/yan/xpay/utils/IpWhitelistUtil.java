@@ -21,7 +21,7 @@ public class IpWhitelistUtil {
 	public static void ipIsAllowed(EnableWhitelistIp enableWhitelistIp, String whiteListIps) {
 		Assert.notNull(enableWhitelistIp);
 		if(enableWhitelistIp == EnableWhitelistIp.DISABLED) return;
-		if(StrUtil.isBlank(whiteListIps)) throw new ServiceException("Please set up the whitelist IP");
+//		if(StrUtil.isBlank(whiteListIps)) throw new ServiceException("Please set up the whitelist IP");
 		String clientIP = IpWhitelistUtil.getClientIpForWhitelist(ServletUtils.getRequest());
 		boolean isInner = false;
 		if(NetUtils.isIPv6(clientIP)) {
