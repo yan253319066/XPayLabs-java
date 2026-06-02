@@ -40,8 +40,8 @@ public class GenAddressTask {
 	public void run(){
 		chainConfigs.keySet().forEach(chain -> {
 			Long count = addressPoolMapper.selectCount(new LambdaQueryWrapper<AddressPool>().eq(AddressPool::getChain, chain).eq(AddressPool::getUsed, AddressStatus.UNUSED));
-			if( count != null && count >= 19) return;
-			for (int i = 0; i < 20; i++) {
+			if( count != null && count >= 50) return;
+			for (int i = 0; i < 100; i++) {
 				createTronAccount(chain);
 			}
 		});
