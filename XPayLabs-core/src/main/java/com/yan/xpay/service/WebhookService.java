@@ -5,17 +5,21 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.yan.xpay.domain.Merchant;
-import com.yan.xpay.domain.NotifyPayload;
+import com.yan.xpay.domain.*;
 import com.yan.xpay.domain.vo.NotifyMerchant;
+import com.yan.xpay.enums.NotifyStatus;
+import com.yan.xpay.mapper.CallbackNoticeMapper;
 import com.yan.xpay.mapper.MerchantMapper;
+import com.yan.xpay.mapper.PaymentOrderMapper;
 import com.yan.xpay.utils.WebhookSignUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -24,6 +28,8 @@ import java.util.Map;
 public class WebhookService {
 
 	private final MerchantMapper merchantMapper;
+    private final PaymentOrderMapper paymentOrderMapper;
+    private final CallbackNoticeMapper callbackNoticeMapper;
 
 	private static final ObjectMapper mapper = new ObjectMapper();
 
@@ -32,6 +38,7 @@ public class WebhookService {
 	}
 
 	public boolean notifyMerchant(Long merchantId, String callbackUrl, NotifyPayload notifyPayload) {
+        boolean b = false;
 		try {
 			if(merchantId == null) return false;
 			Merchant merchant = merchantMapper.selectById(merchantId);
@@ -51,11 +58,36 @@ public class WebhookService {
 				.execute();
 
 			log.info("商家 {} 回调响应 - 状态码: {}, 内容: {}", merchantId, response.getStatus(),  response.body());
-			return response.getStatus()  == 200;
+			b = response.getStatus()  == 200;
+            return b;
 		} catch (Exception e) {
 			log.error(" 回调通知失败: {}", e.getMessage());
-			return false;
-		}
+			return b;
+		}finally {
+            if (notifyPayload.getData() instanceof NotifyOrder notifyOrder) {
+                PaymentOrder order = paymentOrderMapper.selectOne(new LambdaQueryWrapper<PaymentOrder>()
+                        .eq(PaymentOrder::getMerchantOrderId, notifyOrder.getOrderId()));
+                if(order == null) {
+                    log.error("Order Id {} 不存在", notifyOrder.getOrderId());
+
+                }else {
+                    List<CallbackNotice> list = callbackNoticeMapper.selectList(new LambdaQueryWrapper<CallbackNotice>()
+                            .eq(CallbackNotice::getOrderId, order.getId()).eq(CallbackNotice::getNotifyStatus, NotifyStatus.INIT));
+                    CallbackNotice callbackNotice;
+                    if(ObjectUtil.isNotEmpty(list)) {
+                        callbackNotice = list.get(0);
+                    }else {
+                        callbackNotice = new CallbackNotice();
+                    }
+                    callbackNotice.setMerchantId(order.getMerchantId());
+                    callbackNotice.setOrderId(order.getId());
+                    callbackNotice.setCallbackUrl(order.getCallbackUrl());
+                    callbackNotice.setNotifyStatus(b ? NotifyStatus.SUCCESS : NotifyStatus.INIT);
+                    callbackNoticeMapper.insertOrUpdate(callbackNotice);
+                }
+            }
+
+        }
 	}
 
 	public boolean notifyMerchant(NotifyMerchant notifyMerchant) {

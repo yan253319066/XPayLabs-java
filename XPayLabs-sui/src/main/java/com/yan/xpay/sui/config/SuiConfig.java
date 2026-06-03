@@ -25,7 +25,7 @@ public class SuiConfig {
 	private String encryptionKey;
 
 	@Bean
-	public SuiScanTask suiScanTaskMain(
+	public SuiScanTask suiScanTask(
 		SuiConfig config,
 		BlockHeightTrackerMapper trackerMapper,
 		ErrorBlockMapper errorMapper,
@@ -37,18 +37,18 @@ public class SuiConfig {
 		);
 	}
 
-	@Bean
-	public SuiScanTask suiScanTaskTest(
-		SuiConfig config,
-		BlockHeightTrackerMapper trackerMapper,
-		ErrorBlockMapper errorMapper,
-		BlockProcessorService processor,
-		Executor threadPoolTaskExecutor) {
-		return new SuiScanTask(
-			config, trackerMapper, errorMapper, processor,
-			threadPoolTaskExecutor
-		);
-	}
+//	@Bean
+//	public SuiScanTask suiScanTaskTest(
+//		SuiConfig config,
+//		BlockHeightTrackerMapper trackerMapper,
+//		ErrorBlockMapper errorMapper,
+//		BlockProcessorService processor,
+//		Executor threadPoolTaskExecutor) {
+//		return new SuiScanTask(
+//			config, trackerMapper, errorMapper, processor,
+//			threadPoolTaskExecutor
+//		);
+//	}
 
 
 	// -----------------------------

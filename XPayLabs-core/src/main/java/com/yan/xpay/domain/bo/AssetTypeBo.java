@@ -37,7 +37,7 @@ public class AssetTypeBo {
     /**
      * 链类型，如 TRON、ETH、BTC、BSC
      */
-    @NotBlank(message = "链类型，如 TRON、ETH、BTC、BSC不能为空", groups = { AddGroup.class, EditGroup.class })
+    @NotNull(message = "链类型，如 TRON、ETH、BTC、BSC不能为空", groups = { AddGroup.class, EditGroup.class })
     private Chain chain;
 
     /**
