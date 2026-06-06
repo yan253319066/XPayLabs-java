@@ -61,6 +61,7 @@ public class PaymentOrderServiceImpl implements IPaymentOrderService {
     private final TxRecordMapper txRecordMapper;
     private final IUserAddressService userAddressService;
     private final XPayConfig xPayConfig;
+    private final SkipSign skipSign;
     private final IMerchantAssetsService merchantAssetsService;
 
     @Override
@@ -69,7 +70,7 @@ public class PaymentOrderServiceImpl implements IPaymentOrderService {
         Assert.notBlank(sign, "Sign is blank");
         Map<String, Object> params = new HashMap<>();
         params.put("orderId", orderId);
-        if(!SkipSign.verify(params, sign)) throw new ServiceException("Sign error");
+        if(!skipSign.verify(params, sign)) throw new ServiceException("Sign error");
         PaymentOrder order = baseMapper.selectOne(new LambdaQueryWrapper<PaymentOrder>().eq(PaymentOrder::getMerchantOrderId, orderId).eq(PaymentOrder::getOrderType, OrderType.COLLECTION));
         if(order == null) throw new ServiceException("Order not found");
         PayinOrderVo payinOrderVo = new PayinOrderVo();
@@ -92,7 +93,7 @@ public class PaymentOrderServiceImpl implements IPaymentOrderService {
         Assert.notBlank(sign, "Sign is blank");
         Map<String, Object> params = new HashMap<>();
         params.put("orderId", orderId);
-        if(!SkipSign.verify(params, sign)) throw new ServiceException("Sign error");
+        if(!skipSign.verify(params, sign)) throw new ServiceException("Sign error");
         PaymentOrder order = baseMapper.selectOne(new LambdaQueryWrapper<PaymentOrder>().eq(PaymentOrder::getMerchantOrderId, orderId).eq(PaymentOrder::getOrderType, OrderType.COLLECTION));
         if(order == null) throw new ServiceException("Order not found");
         return order.getStatus();
@@ -300,7 +301,7 @@ public class PaymentOrderServiceImpl implements IPaymentOrderService {
         params.put("orderId", order.getMerchantOrderId());
         String payDomain = xPayConfig.getPayDomain();
         if(StrUtil.isBlank(payDomain)) payDomain = "";
-        paymentAddress.setPaymentUrl(payDomain + "?orderId="+order.getMerchantOrderId()+"&sign="+ SkipSign.sign(params));
+        paymentAddress.setPaymentUrl(payDomain + "?orderId="+order.getMerchantOrderId()+"&sign="+ skipSign.sign(params));
         return paymentAddress;
     }
 

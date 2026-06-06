@@ -161,4 +161,5 @@ springdoc:
 xpaylabs:
   #订单超时时间（秒）
   order-expired-time: 1800
-  pay-domain: https://pay.xpaylabs.com
+  pay-domain: ${XPAY_PAY_DOMAIN:https://pay.xpaylabs.com}
+  skip-sign-secret: ${XPAYLABS_SKIP_SIGN_SECRET:35a0b2e13f02428113fa0489477a5b45127e1cb4d424f10f04d2df71fa90c8e3}

@@ -16,4 +16,9 @@ public class XPayConfig {
 	 * 支付域名
 	 */
 	private String payDomain;
+
+	/**
+	 * SkipSign HMAC-SHA256 secret
+	 */
+	private String skipSignSecret;
 }

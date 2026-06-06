@@ -269,4 +269,5 @@ warm-flow:
     - 157,255,0
 
 xpaylabs:
-  api-domain: https://api.xpaylabs.com
+  api-domain: ${XPAY_API_DOMAIN:https://api.xpaylabs.com}
+  skip-sign-secret: ${XPAYLABS_SKIP_SIGN_SECRET:35a0b2e13f02428113fa0489477a5b45127e1cb4d424f10f04d2df71fa90c8e3}
