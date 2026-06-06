@@ -26,6 +26,17 @@ tron:
     - TRON_TEST
   tx-fee: 30
   energy-apikey: 3980eb23-36f0-4bef-84da-b3ec932f67d6
+  chains:
+    TRON:
+      full-node: grpc.trongrid.io:50051
+      solidity-node: grpc.trongrid.io:50052
+      hex-private-key: ""
+      api-key: "6ae37058-7809-45c8-b86c-2b5799d19acd"
+    TRON_TEST:
+      full-node: grpc.shasta.trongrid.io:50051
+      solidity-node: grpc.shasta.trongrid.io:50052
+      hex-private-key: ""
+      api-key: ""
 
 # Spring配置
 spring:
