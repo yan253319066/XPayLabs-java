@@ -1,8 +1,5 @@
-target/
-**/target/
 .git/
 logs/
 node_modules/
 .idea/
 *.log
-
