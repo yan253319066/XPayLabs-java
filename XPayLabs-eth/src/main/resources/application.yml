@@ -30,6 +30,61 @@ eth:
     - POLYGON_AMOY
     - AVAX_C_CHAIN
     - AVAX_FUJI_TEST
+  chains:
+    ETH:
+      rpc-urls:
+        - https://0xrpc.io/eth
+        - https://rpc.flashbots.net
+      scan-interval-seconds: 15
+      rpc-provider-count: 1
+    ETH_SEPOLIA:
+      rpc-urls:
+        - https://eth-sepolia.g.alchemy.com/v2/uSj84PzV5eyb-g-vnZyq1
+        - https://rpc.ankr.com/eth_sepolia/2222a49d1f0845ea6f0ebb650e5de491bc54edff012536b1a7e7e19ec6c5cb80
+      scan-interval-seconds: 5
+      rpc-provider-count: 2
+    BSC:
+      rpc-urls:
+        - https://bsc-dataseed.bnbchain.org
+        - https://bsc-dataseed1.nariox.org
+        - https://bsc-dataseed.defibit.io
+        - https://bsc-dataseed.ninicoin.io
+      scan-interval-seconds: 2
+      rpc-provider-count: 4
+    BSC_TEST:
+      rpc-urls:
+        - https://data-seed-prebsc-1-s1.bnbchain.org:8545
+        - https://data-seed-prebsc-2-s1.bnbchain.org:8545
+        - https://data-seed-prebsc-1-s2.bnbchain.org:8545
+        - https://data-seed-prebsc-2-s2.bnbchain.org:8545
+        - https://data-seed-prebsc-1-s3.bnbchain.org:8545
+        - https://data-seed-prebsc-2-s3.bnbchain.org:8545
+      scan-interval-seconds: 2
+      rpc-provider-count: 6
+    POLYGON:
+      rpc-urls:
+        - https://polygon-mainnet.rpcfast.com?api_key=xbhWBI1Wkguk8SNMu1bvvLurPGLXmgwYeC4S6g2H7WdwFigZSmPWVZRxrskEQwIf
+        - https://rpc.sentio.xyz/matic
+        - https://api.zan.top/polygon-mainnet
+        - https://poly.api.pocket.network
+        - https://go.getblock.io/02667b699f05444ab2c64f9bff28f027
+      scan-interval-seconds: 2
+      rpc-provider-count: 5
+    POLYGON_AMOY:
+      rpc-urls:
+        - https://rpc-amoy.polygon.technology
+      scan-interval-seconds: 2
+      rpc-provider-count: 1
+    AVAX_C_CHAIN:
+      rpc-urls:
+        - https://api.avax.network/ext/bc/C/rpc
+      scan-interval-seconds: 2
+      rpc-provider-count: 1
+    AVAX_FUJI_TEST:
+      rpc-urls:
+        - https://api.avax-test.network/ext/bc/C/rpc
+      scan-interval-seconds: 2
+      rpc-provider-count: 1
 
 # Spring配置
 spring:
