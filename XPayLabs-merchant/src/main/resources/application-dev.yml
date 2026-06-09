@@ -17,8 +17,8 @@ spring.boot.admin.client:
     metadata:
       username: ${spring.boot.admin.client.username}
       userpassword: ${spring.boot.admin.client.password}
-  username: @monitor.username@
-  password: @monitor.password@
+  username: ${MONITOR_USERNAME:yan}
+  password: ${MONITOR_PASSWORD:yan123456}
 
 --- # snail-job 配置
 snail-job:
