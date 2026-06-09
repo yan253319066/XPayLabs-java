@@ -320,6 +320,7 @@ public class MerchantServiceImpl implements IMerchantService {
         Map<String, Object> params = bo.getParams();
         LambdaQueryWrapper<Merchant> lqw = Wrappers.lambdaQuery();
         lqw.orderByAsc(Merchant::getId);
+        lqw.ne(Merchant::getId, 1L);
         lqw.eq(bo.getMerchantSysVersion() != null, Merchant::getMerchantSysVersion, bo.getMerchantSysVersion());
         lqw.like(StringUtils.isNotBlank(bo.getName()), Merchant::getName, bo.getName());
         lqw.eq(StringUtils.isNotBlank(bo.getToken()), Merchant::getToken, bo.getToken());
