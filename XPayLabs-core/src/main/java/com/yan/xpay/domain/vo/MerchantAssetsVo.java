@@ -70,5 +70,8 @@ public class MerchantAssetsVo implements Serializable {
     @ExcelProperty(value = "总余额(冗余)")
     private BigDecimal totalBalance;
 
+    private Date createTime;
+
+    private Date updateTime;
 
 }

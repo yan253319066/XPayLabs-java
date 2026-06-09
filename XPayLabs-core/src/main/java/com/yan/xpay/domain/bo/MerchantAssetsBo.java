@@ -32,7 +32,7 @@ public class MerchantAssetsBo {
     /**
      * 商家ID
      */
-    @NotBlank(message = "商家ID不能为空", groups = { AddGroup.class, EditGroup.class })
+    @NotNull(message = "商家ID不能为空", groups = { AddGroup.class, EditGroup.class })
     private Long merchantId;
 
     /**

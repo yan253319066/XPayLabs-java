@@ -115,7 +115,7 @@ public class BlockchainEventDispatcher {
 				.in(UserAddress::getAddress, tx.getFrom(), tx.getTo()));
 		if(userAddress != null) {
 			if(userAddress.getAddress().equalsIgnoreCase(tx.getFrom())) {//收集
-				boolean b = blockchainDataSyncService.collect(userAddress, tx);
+				boolean b = blockchainDataSyncService.collect(userAddress, tx, assetType);
 				log.info("归集，结果 {} status {} chain {} txId {}", b, tx.getStatus(), tx.getChain(), tx.getTxid());
 				return b;
 			}else if(userAddress.getAddress().equalsIgnoreCase(tx.getTo())) {//商家是固定每个用户一个地址 -> 充值

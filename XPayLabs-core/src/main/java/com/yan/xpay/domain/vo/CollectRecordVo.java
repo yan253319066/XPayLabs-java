@@ -137,5 +137,11 @@ public class CollectRecordVo implements Serializable {
     @ExcelProperty(value = "平台手续费率")
     private BigDecimal feeRatio;
 
+    /**
+     * 创建时间
+     */
+    @ExcelProperty(value = "创建时间")
+    private Date createTime;
+
 
 }

@@ -13,7 +13,7 @@ import lombok.Data;
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
-
+import java.util.Date;
 
 
 /**
@@ -111,5 +111,8 @@ public class MerchantAssetDetailsVo implements Serializable {
     @ExcelProperty(value = "备注")
     private String remark;
 
+    private Date createTime;
+
+    private Date updateTime;
 
 }

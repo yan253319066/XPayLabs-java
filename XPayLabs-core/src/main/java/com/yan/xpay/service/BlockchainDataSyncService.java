@@ -47,8 +47,9 @@ public interface BlockchainDataSyncService {
 	 * 归集
 	 * @param userAddress
 	 * @param tx
+     * @param assetType
 	 * @return
 	 */
-	Boolean collect(UserAddress userAddress, Transaction tx);
+	Boolean collect(UserAddress userAddress, Transaction tx, AssetType assetType);
 
 }

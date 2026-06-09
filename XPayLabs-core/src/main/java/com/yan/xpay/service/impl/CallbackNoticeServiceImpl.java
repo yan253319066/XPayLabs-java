@@ -77,7 +77,8 @@ public class CallbackNoticeServiceImpl implements ICallbackNoticeService {
         lqw.eq(bo.getOrderId() != null, CallbackNotice::getOrderId, bo.getOrderId());
         lqw.eq(StringUtils.isNotBlank(bo.getCallbackUrl()), CallbackNotice::getCallbackUrl, bo.getCallbackUrl());
         lqw.eq(bo.getNotifyStatus() != null, CallbackNotice::getNotifyStatus, bo.getNotifyStatus());
-        lqw.eq(bo.getNotifyTime() != null, CallbackNotice::getNotifyTime, bo.getNotifyTime());
+        lqw.between(params.get("beginNotifyTime") != null && params.get("endNotifyTime") != null,
+                CallbackNotice::getNotifyTime ,params.get("beginNotifyTime"), params.get("endNotifyTime"));
         lqw.between(params.get("beginCreateTime") != null && params.get("endCreateTime") != null,
             CallbackNotice::getCreateTime ,params.get("beginCreateTime"), params.get("endCreateTime"));
         return lqw;

@@ -428,7 +428,7 @@ public class BlockchainDataSyncServiceImpl implements BlockchainDataSyncService 
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	@Override
-	public Boolean collect(UserAddress userAddress, Transaction tx) {
+	public Boolean collect(UserAddress userAddress, Transaction tx, AssetType assetType) {
 		if (userAddress != null) {
 			if (tx.getStatus()  == BlockchainStatus.SUCCESS) {
 				userAddress.setCollectible(UserAddressCollectible.NO);
@@ -443,7 +443,7 @@ public class BlockchainDataSyncServiceImpl implements BlockchainDataSyncService 
 				collectRecord.setBlockTime(tx.getTimestamp());
 				collectRecord.setConfirmedNum(tx.getConfirmedNum());
 				collectRecord.setStatus(tx.getStatus());
-				collectRecord.setTxFee(tx.getTxGas());
+				collectRecord.setTxFee(AmountUtils.fromAmount(tx.getTxGas(), assetType.getDecimals()));
 				collectRecordMapper.updateById(collectRecord);
 			}
 			return true;
