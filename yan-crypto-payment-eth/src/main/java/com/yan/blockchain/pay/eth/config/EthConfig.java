@@ -31,7 +31,6 @@ public class EthConfig {
     public static class ChainConfig {
         private List<String> rpcUrls;       // RPC端点列表
         private long scanIntervalSeconds;   // 每条链一个扫描间隔
-        private int rpcProviderCount;       // 每条链需要的Web3j实例数量
     }
 
     @Bean

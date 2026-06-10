@@ -1,5 +1,6 @@
 package com.yan.blockchain.pay.eth.runner;
 
+import cn.hutool.json.JSONUtil;
 import com.yan.xpay.enums.Chain;
 import com.yan.blockchain.pay.eth.config.EthConfig;
 import com.yan.blockchain.pay.eth.EvmBlockScanner;
@@ -34,6 +35,7 @@ public class BlockchainScanner {
 	}
 
 	public void run() {
+//		log.info("scanIntervals: {}", JSONUtil.toJsonStr(scanIntervals));
 		scanIntervals.forEach((chain,  interval) -> {
 			// 为每条链创建定时任务，使用各自配置的间隔
 			scheduledExecutorService.scheduleAtFixedRate(()  -> {

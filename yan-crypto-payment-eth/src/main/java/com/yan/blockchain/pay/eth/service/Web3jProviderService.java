@@ -20,8 +20,9 @@ public class Web3jProviderService {
 		this.currentIndex  = new HashMap<>();
 
 		chainConfigs.forEach((chain,  config) -> {
-			Web3j[] providers = new Web3j[config.getRpcProviderCount()];
-			String[] urls = new String[config.getRpcProviderCount()]; // 存储URL
+			int providerCount = config.getRpcUrls().size();
+			Web3j[] providers = new Web3j[providerCount];
+			String[] urls = new String[providerCount];
 
 			for (int i = 0; i < providers.length;  i++) {
 				String rpcUrl = config.getRpcUrls().get(i  % config.getRpcUrls().size());

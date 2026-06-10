@@ -17,26 +17,24 @@ server:
     threads:
       # 设置IO线程数, 它主要执行非阻塞的任务,它们会负责多个连接, 默认设置每个CPU核心一个线程
       io: 8
-      # 阻塞任务线程池, 当执行类似servlet请求阻塞操作, undertow会从这个线程池中取得线程,它的值设置取决于系统的负载
+        # 阻塞任务线程池, 当执行类似servlet请求阻塞操作, undertow会从这个线程池中取得线程,它的值设置取决于系统的负载
       worker: 256
 
 tron:
-  networks:
-    - TRON
-    - TRON_TEST
-  tx-fee: 30
-  energy-apikey: 3980eb23-36f0-4bef-84da-b3ec932f67d6
+  networks: ${TRON_NETWORKS}
+  tx-fee: ${TRON_TX_FEE}
+  energy-apikey: ${TRON_ENERGY_APIKEY}
   chains:
     TRON:
-      full-node: grpc.trongrid.io:50051
-      solidity-node: grpc.trongrid.io:50052
-      hex-private-key: ""
-      api-key: "6ae37058-7809-45c8-b86c-2b5799d19acd"
-    TRON_TEST:
-      full-node: grpc.shasta.trongrid.io:50051
-      solidity-node: grpc.shasta.trongrid.io:50052
-      hex-private-key: ""
-      api-key: ""
+      full-node: ${NODE_TRON}
+      solidity-node: ${SOLIDITY_TRON}
+      hex-private-key: ${HEXKEY_TRON}
+      api-key: ${APIKEY_TRON}
+    "[TRON_TEST]":
+      full-node: ${NODE_TRON_TEST}
+      solidity-node: ${SOLIDITY_TRON_TEST}
+      hex-private-key: ${HEXKEY_TRON_TEST}
+      api-key: ${APIKEY_TRON_TEST}
 
 # Spring配置
 spring:

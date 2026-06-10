@@ -47,4 +47,6 @@ nbdist/
 
 .flattened-pom.xml
 
+.env
+
 AGENTS.md
