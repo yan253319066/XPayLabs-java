@@ -60,7 +60,7 @@ public class PayoutTest {
 //	@Test
 	public void withdraw(){
 		for (int i = 0; i < 2; i++) {
-			merchantService.withdrawal(merchantService.getMerchantByName("XpayTestV3"), Chain.BSC_TEST, "USDT", BigDecimal.ONE);
+			merchantService.withdrawal(merchantService.getMerchantByName("XpayTestV3"), Chain.BSC_TEST, "USDT", BigDecimal.ONE, "0x0000000000000000000000000000000000000000");
 		}
 	}
 }

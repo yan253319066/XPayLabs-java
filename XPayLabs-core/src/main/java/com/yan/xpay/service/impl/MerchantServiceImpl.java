@@ -72,7 +72,7 @@ public class MerchantServiceImpl implements IMerchantService {
 
     @Transactional
     @Override
-    public void withdrawal(MerchantVo merchant, Chain chain, String symbol, BigDecimal amount) {
+    public void withdrawal(MerchantVo merchant, Chain chain, String symbol, BigDecimal amount, String address) {
         Assert.notNull(merchant);
         Assert.notNull(chain);
         Assert.notBlank(symbol);
@@ -93,10 +93,19 @@ public class MerchantServiceImpl implements IMerchantService {
             }
         }
 
-        MerchantAddress merchantAddress = merchantAddressMapper.selectOne(new LambdaQueryWrapper<MerchantAddress>().eq(MerchantAddress::getChain, chain).eq(MerchantAddress::getSymbol, symbol).eq(
-            MerchantAddress::getMerchantId, merchant.getId()));
-        if(merchantAddress == null || StrUtil.isBlank(merchantAddress.getColdAddress()) || StrUtil.isBlank(merchantAddress.getHotAddress()))
-            throw new ServiceException("Parameter error");
+        if(StrUtil.isBlank(address)) {
+            MerchantAddress merchantAddress = merchantAddressMapper.selectOne(new LambdaQueryWrapper<MerchantAddress>().eq(MerchantAddress::getChain, chain).eq(MerchantAddress::getSymbol, symbol).eq(
+                MerchantAddress::getMerchantId, merchant.getId()));
+            if(merchantAddress == null) {
+                log.error("商户地址不存在 merchant name {}", merchant.getName());
+                throw new ServiceException("商户地址不存在");
+            }
+            if(StrUtil.isBlank(merchantAddress.getColdAddress()) || StrUtil.isBlank(merchantAddress.getHotAddress())) {
+                log.error("商户地址不存在 merchant name {} coldAddress {} hotAddress {}", merchant.getName(), merchantAddress.getColdAddress(), merchantAddress.getHotAddress());
+                throw new ServiceException("Parameter error");
+            }
+            address = merchantAddress.getColdAddress();
+        }
 
         IpWhitelistUtil.ipIsAllowed(merchant.getEnableWhitelistIp(), merchant.getWhiteListIp());
 
@@ -112,8 +121,7 @@ public class MerchantServiceImpl implements IMerchantService {
             merchantRechargeWithdraw.setStatus(RechargeWithdrawStatus.APPROVED);
         else merchantRechargeWithdraw.setStatus(RechargeWithdrawStatus.INIT);
 
-        if(StrUtil.isBlank(merchantAddress.getColdAddress())) throw new ServiceException("请先设置冷钱包地址");
-        merchantRechargeWithdraw.setReceiveAddress(merchantAddress.getColdAddress());
+        merchantRechargeWithdraw.setReceiveAddress(address);
         merchantRechargeWithdraw.setAmount(amount);
 
         BigDecimal fee = BigDecimal.ZERO;

@@ -31,7 +31,7 @@ public interface IMerchantService {
      */
     List<AssetTypeVo> merchantAssetTypeList(Long merchantId, MerchantAccountType accountType);
 
-    void withdrawal(MerchantVo merchantVo, Chain chain, String symbol, BigDecimal amount);
+    void withdrawal(MerchantVo merchantVo, Chain chain, String symbol, BigDecimal amount, String address);
 
     MerchantVo getMerchantByUserId(Long userId);
     MerchantVo getMerchantByName(String name);

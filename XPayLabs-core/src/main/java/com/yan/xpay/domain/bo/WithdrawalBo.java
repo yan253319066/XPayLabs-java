@@ -15,6 +15,8 @@ public class WithdrawalBo {
 	private String symbol;
 	@NotNull(message = "amount不能为空")
 	private BigDecimal amount;
+	@NotBlank(message = "address不能为空")
+	private String address;
 	@NotNull(message = "code不能为空")
 	private Integer code;
 }

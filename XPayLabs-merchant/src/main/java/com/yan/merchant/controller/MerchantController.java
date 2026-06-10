@@ -227,7 +227,7 @@ public class MerchantController extends BaseController {
         MerchantVo merchantVo = merchantService.getMerchantByName(username);
         boolean b = googleAuthService.verifyCode(username, bo.getCode());
         if(!b) return R.fail("2FA code error");
-        merchantService.withdrawal(merchantVo, bo.getChain(), bo.getSymbol(), bo.getAmount());
+        merchantService.withdrawal(merchantVo, bo.getChain(), bo.getSymbol(), bo.getAmount(), bo.getAddress());
         return R.ok();
     }
 
