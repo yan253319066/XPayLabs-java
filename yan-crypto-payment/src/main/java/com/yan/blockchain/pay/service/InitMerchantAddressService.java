@@ -65,7 +65,7 @@ public class InitMerchantAddressService {
 						.last("LIMIT 1 FOR UPDATE"));
 				}
 				if(addressPool == null) {
-                    log.error("地址池没有有效地址，等待地址池创建地址后重启服务...");
+                    log.error("[{}] 地址池没有有效地址，等待地址池创建地址后重启服务...", chain);
                     return;
                 }
 
