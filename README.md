@@ -77,4 +77,4 @@ mvn clean package -P dev -DskipTests
 
 ## License
 
-MIT
+GPLv3
