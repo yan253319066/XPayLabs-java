@@ -67,12 +67,4 @@ public class FeeeUtil {
 		res.set("rechargeAddress", data.getStr("recharge_address"));//平台充值钱包
 		return res;
 	}
-
-	public static void main(String[] args) {
-//		Double p = price(32000L, 1, "h", "");
-//		System.out.println(p);
-		Long l = estimateEnergy("TA1uYaz6Ybba7zvU1Kpa9AwQcT5bpaGGon", "TZ3mw7nbr8Z1LyZdnq12houH9GwkUPdyNe", "3980eb23-36f0-4bef-84da-b3ec932f67d6");
-		log.info("{}", l);
-//		log.info(accountInfo("").toString());
-	}
 }
