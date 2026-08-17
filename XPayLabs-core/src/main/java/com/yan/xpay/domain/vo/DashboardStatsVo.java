@@ -1,5 +1,7 @@
 package com.yan.xpay.domain.vo;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.yan.xpay.config.BigDecimalStringSerializer;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -23,6 +25,7 @@ public class DashboardStatsVo {
     public static class Fund {
         private DashboardTradeBucketVo recharge = emptyBucket();
         private DashboardTradeBucketVo withdraw = emptyBucket();
+        @JsonSerialize(using = BigDecimalStringSerializer.class)
         private BigDecimal feeTotal = BigDecimal.ZERO;
         private List<DashboardSymbolStatVo> bySymbol = new ArrayList<>();
     }
