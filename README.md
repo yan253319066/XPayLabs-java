@@ -77,4 +77,4 @@ mvn clean package -P dev -DskipTests
 
 ## License
 
-GPLv3
+[GPL-3.0](LICENSE)
