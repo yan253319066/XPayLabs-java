@@ -152,7 +152,7 @@ public interface DashboardMapper {
     @Select("""
         SELECT chain AS chain, last_height AS lastHeight, update_time AS updateTime
         FROM t_block_height_tracker
-        WHERE update_time &lt; #{threshold}
+        WHERE update_time < #{threshold}
         """)
     List<DashboardStaleTrackerVo> listStaleTrackers(@Param("threshold") Date threshold);
 }
